@@ -1,374 +1,191 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Leroy Industrie — Conception et fabrication bois</title>
-  <meta name="description" content="Leroy Industrie conçoit et fabrique des meubles en bois et équipements d'aménagement pour entreprises et citoyens de l'île." />
-  <!-- Favicon minimal en SVG (data URL) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23291812'/%3E%3Cpath d='M16 44h32M20 20h24v16H20z' stroke='%23E3D9C6' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
-  <!-- Polices -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boulangerie Pop - Depuis 1880</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2909/2909763.png" type="image/png">
   <style>
-    :root{
-      --bg-1:#0f1412;          /* vert-noir profond */
-      --bg-2:#151b17;          /* nuance */
-      --wood-1:#5c3b2a;        /* bois sombre */
-      --wood-2:#8a5a3c;        /* bois clair */
-      --steel-1:#aab4b6;       /* acier clair */
-      --accent:#3e7b4a;        /* vert industriel */
-      --glass-bg:rgba(255,255,255,0.06);
-      --glass-brd:rgba(255,255,255,0.18);
-      --text:#eae8e3;
-      --muted:#c9c3b8;
-      --shadow:0 10px 30px rgba(0,0,0,.35);
-      --radius:22px;
-      --blur:16px;
-      --maxw:1200px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;}
-    body{
-      margin:0; background: radial-gradient(1200px 800px at 20% 10%, #183024 0%, var(--bg-1) 60%), linear-gradient(180deg, var(--bg-2), var(--bg-1));
-      color:var(--text); font-family:'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      overflow-x:hidden;
-    }
-    .wrap{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 20px}
-
-    /* Effet glass */
-    .card{
-      background:var(--glass-bg);
-      border:1px solid var(--glass-brd);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      backdrop-filter: blur(var(--blur)) saturate(120%);
+    :root {
+      --beige: #f5f0e6;
+      --brun: #6e4b3a;
+      --doré: #d4a373;
+      --blanc: #ffffff;
+      --shadow: rgba(0,0,0,0.1);
     }
 
-    /* Header */
-    header{position:fixed; top:0; left:0; right:0; z-index:20; background:rgba(10,12,11,0.4); backdrop-filter: blur(12px); border-bottom:1px solid rgba(255,255,255,0.08)}
-    .nav{display:flex; align-items:center; justify-content:space-between; height:68px}
-    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
-    .brand-logo{width:34px; height:34px}
-    .brand h1{font-family:Montserrat, sans-serif; font-weight:800; font-size:18px; letter-spacing:.5px; margin:0}
-    nav ul{display:flex; gap:18px; list-style:none; margin:0; padding:0}
-    nav a{color:var(--muted); text-decoration:none; font-weight:600; font-size:14px}
-    nav a:hover{color:var(--text)}
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--beige);
+      color: var(--brun);
+      overflow-x: hidden;
+    }
 
-    /* Hero */
-    .hero{position:relative; padding:160px 0 120px; overflow:hidden}
-    .hero-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center}
-    .kicker{display:inline-flex; align-items:center; gap:10px; color:#cfe5d4; background:rgba(62,123,74,0.12); border:1px solid rgba(62,123,74,0.35); padding:8px 12px; border-radius:999px; font-weight:700; font-size:12px; text-transform:uppercase; letter-spacing:.12em}
-    .title{font-family:Montserrat, sans-serif; font-size:52px; line-height:1.05; margin:14px 0 10px}
-    .subtitle{color:var(--muted); font-size:18px; max-width:48ch}
-    .cta{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
-    .btn{--bg:linear-gradient(135deg, var(--accent), #6dbf7c); display:inline-flex; align-items:center; gap:10px; padding:14px 18px; border-radius:14px; border:1px solid rgba(255,255,255,0.12); text-decoration:none; font-weight:800; color:#0b120d; background:var(--bg); box-shadow:0 8px 18px rgba(20,60,30,.35); transform:translateZ(0)}
-    .btn:hover{filter:saturate(115%)}
-    .btn-ghost{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.2)}
+    header {
+      position: relative;
+      text-align: center;
+      padding: 6rem 2rem;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.6), rgba(245,240,230,0.8));
+      backdrop-filter: blur(12px);
+    }
 
-    .stats{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:24px}
-    .stat{padding:14px 16px; border-radius:16px; border:1px dashed rgba(255,255,255,0.18); background:rgba(255,255,255,0.03)}
-    .stat b{display:block; font-family:Montserrat; font-size:22px}
-    .stat span{color:var(--muted); font-size:13px}
+    header h1 {
+      font-size: 3rem;
+      color: var(--brun);
+    }
 
-    /* Sections */
-    section{padding:80px 0}
-    h2{font-family:Montserrat; font-size:34px; margin:0 0 14px}
-    .lead{color:var(--muted); max-width:70ch}
-    .grid{display:grid; gap:20px}
+    header p {
+      margin-top: 1rem;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--doré);
+    }
 
-    /* Activités */
-    .features{grid-template-columns:repeat(3,1fr)}
-    .feature{padding:18px; display:flex; flex-direction:column; gap:10px}
-    .icon{width:26px; height:26px}
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
 
-    /* Hiérarchie */
-    .org{grid-template-columns:repeat(4,1fr)}
-    .role{padding:16px}
-    .role h3{margin:6px 0 0; font-size:16px}
-    .role span{color:var(--muted); font-size:13px}
+    nav a {
+      text-decoration: none;
+      color: var(--brun);
+      font-weight: bold;
+      transition: color 0.3s;
+    }
 
-    /* Stratégie */
-    .plan{grid-template-columns:1.1fr .9fr}
+    nav a:hover { color: var(--doré); }
 
-    /* Tableau ressources */
-    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:14px}
-    thead th{background:rgba(255,255,255,0.08); text-align:left; padding:12px; font-size:13px}
-    tbody td{padding:12px; border-top:1px solid rgba(255,255,255,0.08)}
+    section {
+      padding: 6rem 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-    /* Contact */
-    form{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-    form .full{grid-column:1/-1}
-    input, textarea{width:100%; padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.04); color:var(--text)}
-    textarea{min-height:120px; resize:vertical}
-    label{font-size:12px; color:var(--muted); margin-bottom:6px; display:block}
+    .glass {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px var(--shadow);
+      margin-bottom: 3rem;
+    }
 
-    /* Footer */
-    footer{padding:40px 0 80px; color:var(--muted); font-size:14px}
+    h2 {
+      font-size: 2rem;
+      color: var(--brun);
+      margin-bottom: 1rem;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--doré);
+      color: var(--blanc);
+      border-radius: 8px;
+      margin-top: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .cta:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: var(--brun);
+      color: var(--beige);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
 
     /* Responsive */
-    @media (max-width: 960px){
-      .hero-grid{grid-template-columns:1fr}
-      .features{grid-template-columns:1fr 1fr}
-      .org{grid-template-columns:1fr 1fr}
-      .plan{grid-template-columns:1fr}
+    @media(max-width:768px){
+      header h1 {font-size: 2rem;}
+      nav {flex-direction: column;}
     }
-    @media (max-width: 560px){
-      .features{grid-template-columns:1fr}
-    }
-
-    /* Canvas 3D plein écran discret */
-    #scene3d{position:fixed; inset:0; z-index:-1; opacity:.35; pointer-events:none}
-
-    /* Particules décoratives */
-    .grain{position:fixed; inset:-10vh; background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity=".05"/></svg>'); mix-blend-mode:overlay; opacity:.4; z-index:-2}
   </style>
 </head>
 <body>
-  <canvas id="scene3d"></canvas>
-  <div class="grain"></div>
+  <!-- Effet décoratif 3D -->
+  <canvas id="bg-canvas"></canvas>
 
   <header>
-    <div class="wrap nav">
-      <a class="brand" href="#top">
-        <!-- Logo Heroicon Cube -->
-        <svg class="brand-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 7.5l-9-4.5-9 4.5 9 4.5 9-4.5z" stroke="currentColor" stroke-width="1.5"/><path d="M12 12v9" stroke="currentColor" stroke-width="1.5"/><path d="M3 8.25v7.5l9 4.5 9-4.5v-7.5" stroke="currentColor" stroke-width="1.5"/></svg>
-        <h1>Leroy Industrie</h1>
-      </a>
-      <nav>
-        <ul>
-          <li><a href="#histoire">Histoire</a></li>
-          <li><a href="#activites">Activités</a></li>
-          <li><a href="#hierarchie">Équipe</a></li>
-          <li><a href="#strategie">Stratégie</a></li>
-          <li><a href="#ressources">Ressources</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
+    <h1>Boulangerie Pop</h1>
+    <p>« Là où la gourmandise rime avec conscience »</p>
+    <nav>
+      <a href="#histoire">Notre Histoire</a>
+      <a href="#produits">Nos Produits</a>
+      <a href="#recrutement">Recrutement</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="top">
-      <div class="wrap hero-grid">
-        <div>
-          <span class="kicker">
-            <!-- Heroicon Sparkles -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3l1.5 3.5L17 8l-3.5 1.5L12 13l-1.5-3.5L7 8l3.5-1.5L12 3z" stroke="currentColor" stroke-width="1.5"/></svg>
-            Conception & fabrication bois
-          </span>
-          <h2 class="title">Valoriser le matériau. Servir l'usage. Façonner l'île.</h2>
-          <p class="subtitle">Concepteur et fabricant de meubles et aménagements en bois. Production locale. Finitions soignées. Services dédiés aux entreprises et aux foyers.</p>
-          <div class="cta">
-            <a class="btn" href="#contact" aria-label="Demander un devis">
-              <!-- Heroicon Paper Airplane -->
-              <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12l18-9-7 18-2.5-6.5L3 12z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-              Demander un devis
-            </a>
-            <a class="btn btn-ghost" href="#histoire" aria-label="Découvrir notre histoire">
-              <!-- Heroicon Book Open -->
-              <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 6c-2.5-2-6-2-9 0v12c3-2 6-2 9 0 3-2 6-2 9 0V6c-3-2-6-2-9 0z" stroke="currentColor" stroke-width="1.5"/></svg>
-              Notre histoire
-            </a>
-          </div>
-          <div class="stats">
-            <div class="stat card"><b>2005</b><span>Début de la production</span></div>
-            <div class="stat card"><b>Bois local</b><span>Traçabilité maîtrisée</span></div>
-            <div class="stat card"><b>Sur‑mesure</b><span>Aménagements professionnels & résidentiels</span></div>
-          </div>
-        </div>
-        <div class="card" style="padding:18px;">
-          <!-- Visuel matière -->
-          <svg viewBox="0 0 400 320" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="border-radius:16px; background:linear-gradient(180deg, rgba(138,90,60,.25), rgba(41,24,18,.35));">
-            <defs>
-              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#8a5a3c"/>
-                <stop offset="100%" stop-color="#5c3b2a"/>
-              </linearGradient>
-              <pattern id="grain" width="6" height="6" patternUnits="userSpaceOnUse">
-                <circle cx="3" cy="3" r="0.6" fill="#000" opacity="0.08"/>
-              </pattern>
-            </defs>
-            <rect x="0" y="0" width="400" height="320" fill="url(#grain)"/>
-            <g fill="none" stroke="url(#g1)" stroke-width="3" opacity=".7">
-              <path d="M10,260 C80,180 120,200 180,130 C230,80 300,70 380,30"/>
-              <path d="M10,290 C90,210 140,230 200,160 C260,100 310,100 390,60"/>
-              <path d="M10,230 C70,160 140,150 210,110 C280,70 340,60 390,40"/>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </section>
+  <section id="histoire" class="glass">
+    <h2>Depuis 1880</h2>
+    <p>En 1880, Éloi Clément fonda une boulangerie autour d’un vieux four en pierre. De génération en génération, ce savoir-faire a perduré, transmettant la chaleur du pain et l’esprit de famille.</p>
+  </section>
 
-    <!-- HISTOIRE -->
-    <section id="histoire">
-      <div class="wrap">
-        <div class="card" style="padding:24px;">
-          <h2>Histoire</h2>
-          <p class="lead">Leroy Industrie naît d'une volonté simple : entreprendre et développer un savoir‑faire. L'activité démarre en 2005 avec la production de caisses en bois pour l'emballage de millésimes. Très vite, l'offre s'élargit vers des meubles de décoration intérieure aux finitions multiples, afin de mettre en valeur les produits et leur donner une destinée tout en bois.</p>
-          <p>De fil en aiguille, l'entreprise investit, structure sa production et se tourne résolument vers la conception et la fabrication de meubles en bois, avec une attention continue portée à la qualité des matériaux et à l'usage final.</p>
-        </div>
-      </div>
-    </section>
+  <section id="produits" class="glass">
+    <h2>Nos Produits</h2>
+    <p>Baguettes de tradition française, pains spéciaux, et les meilleures viennoiseries. Chaque bouchée est fabriquée avec passion et respect des matières premières.</p>
+    <a class="cta" href="#">Découvrir nos créations</a>
+  </section>
 
-    <!-- ACTIVITÉS -->
-    <section id="activites">
-      <div class="wrap">
-        <h2>Activités</h2>
-        <p class="lead">Achat et transformation de bois. Conception et fabrication de meubles et aménagements. Approvisionnement technique pour la production.</p>
-        <div class="grid features">
-          <div class="card feature">
-            <!-- Heroicon Truck -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7V9z" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="18" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="17" cy="18" r="2" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>Achat de bois</h3>
-            <p>Troncs et planches auprès des acteurs forestiers de l'île. Traçabilité et sélection matière.</p>
-          </div>
-          <div class="card feature">
-            <!-- Heroicon Cube Transparent -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l8.5 4.25v9.5L12 21l-8.5-4.25v-9.5L12 3z" stroke="currentColor" stroke-width="1.5"/><path d="M20.5 7.25L12 11.5 3.5 7.25" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>Fabrication</h3>
-            <p>Meubles et éléments d'aménagement. Finitions multiples. Série courte et sur‑mesure.</p>
-          </div>
-          <div class="card feature">
-            <!-- Heroicon Wrench -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 7a4.5 4.5 0 016 6l-7.5 7.5a3 3 0 11-4.24-4.24L16 8.5A4.5 4.5 0 0114 7z" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>Approvisionnements</h3>
-            <p>Composants électroniques, acier (plaque, barre), fil 3D, visserie, vitres. Stocks dimensionnés à la production.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section id="recrutement" class="glass">
+    <h2>Recrutement</h2>
+    <p>Nous recrutons boulangers, pâtissiers et vendeurs en CDI. Rejoignez une aventure artisanale transmise depuis plus de 140 ans.</p>
+    <a class="cta" href="#contact">Postuler</a>
+  </section>
 
-    <!-- HIÉRARCHIE -->
-    <section id="hierarchie">
-      <div class="wrap">
-        <h2>Équipe</h2>
-        <p class="lead">Une organisation simple pour une exécution claire.</p>
-        <div class="grid org">
-          <div class="card role">
-            <!-- Heroicon Crown -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10l4 3 5-7 5 7 4-3v7H3v-7z" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>PDG</h3>
-            <span>Dorian Leroy</span>
-          </div>
-          <div class="card role">
-            <!-- Heroicon User Group -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 11a3 3 0 100-6 3 3 0 000 6zM4 19a5 5 0 0110 0M6 8a3 3 0 11-6 0 3 3 0 016 0zM19 19a5 5 0 00-9.9 0" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>CO‑PDG</h3>
-            <span>Jonas Blake</span>
-          </div>
-          <div class="card role">
-            <!-- Heroicon Clipboard Document Check -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3h6v3H9zM7 6h10v15H7z" stroke="currentColor" stroke-width="1.5"/><path d="M9 13l2 2 4-4" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>Chef d'équipe</h3>
-            <span>Joan Delporte</span>
-          </div>
-          <div class="card role">
-            <!-- Heroicon Users -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 11a4 4 0 10-8 0 4 4 0 008 0zM3 21a7 7 0 0118 0" stroke="currentColor" stroke-width="1.5"/></svg>
-            <h3>Équipe</h3>
-            <span>Employés & intérimaires</span>
-          </div>
-        </div>
-      </div>
-    </section>
+  <section id="contact" class="glass">
+    <h2>Contact</h2>
+    <p>Envie de partager un moment autour du pain ? Venez nous rendre visite ou contactez-nous :</p>
+    <p>Email : contact@boulangeriepop.fr</p>
+    <p>Téléphone : 01 23 45 67 89</p>
+  </section>
 
-    <!-- STRATÉGIE & DÉVELOPPEMENT -->
-    <section id="strategie">
-      <div class="wrap">
-        <h2>Stratégie & Développement</h2>
-        <div class="grid plan">
-          <div class="card" style="padding:18px;">
-            <h3>Clientèle ciblée</h3>
-            <p>Entreprises pour l'aménagement de bâtiments et citoyens de l'île pour l'aménagement résidentiel.</p>
-            <h3>Objectifs</h3>
-            <ul>
-              <li>Centraliser la vente de bois et structurer les échanges avec les acteurs forestiers.</li>
-              <li>Devenir le fournisseur principal de meubles sur l'île.</li>
-            </ul>
-          </div>
-          <div class="card" style="padding:18px;">
-            <h3>Engagement</h3>
-            <p>Qualité de fabrication, délais maîtrisés, relation directe avec les utilisateurs finaux. Production responsable et locale.</p>
-            <div class="cta" style="margin-top:8px">
-              <a class="btn" href="#contact">Lancer un projet</a>
-              <a class="btn btn-ghost" href="#ressources">Voir les ressources</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <footer>
+    <p>&copy; 2025 Boulangerie Pop - Tous droits réservés</p>
+  </footer>
 
-    <!-- RESSOURCES -->
-    <section id="ressources">
-      <div class="wrap">
-        <h2>Ressources & matières premières</h2>
-        <p class="lead">Approvisionnements et transformations principales.</p>
-        <div class="card" style="padding:18px;">
-          <div style="overflow:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>Ressource</th>
-                  <th>Origine</th>
-                  <th>Transformation</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Troncs de bois</td>
-                  <td>Acteurs forestiers de l'île</td>
-                  <td>Planches brutes / charbon</td>
-                </tr>
-                <tr>
-                  <td>Planches de bois</td>
-                  <td>Acteurs forestiers de l'île</td>
-                  <td>Planches brutes / intégration fil 3D</td>
-                </tr>
-                <tr>
-                  <td>Acier</td>
-                  <td>Fournisseurs métalliques</td>
-                  <td>Plaques et barres</td>
-                </tr>
-                <tr>
-                  <td>Composants techniques</td>
-                  <td>Réseau partenaires</td>
-                  <td>Électronique, visserie, vitrages</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.from("section", {
+      scrollTrigger: "section",
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      stagger: 0.3
+    });
+  </script>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="wrap">
-        <h2>Contact</h2>
-        <p class="lead">Décrivez votre besoin. Une réponse est apportée avec un premier chiffrage et un calendrier de réalisation.</p>
-        <div class="card" style="padding:18px;">
-          <form onsubmit="event.preventDefault(); alert('Merci. Votre demande a bien été transmise.');">
-            <div>
-              <label>Nom</label>
-              <input type="text" required placeholder="Votre nom" />
-            </div>
-            <div>
-              <label>Organisation</label>
-              <input type="text" placeholder="Entreprise / foyer" />
-            </div>
-            <div class="full">
-              <label>Objet</label>
-              <input type="text" required placeholder="Ex. conception de mobilier pour hall" />
-            </div>
-            <div class="full">
-              <label>Détails</label>
-              <textarea placeholder="Dimensions, usages, délais souhaités…"></textarea>
-            </div>
-            <div class="full">
-              <button class="btn" type="submit">Envoyer la demande</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
+  <!-- Three.js décor wireframe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({canvas: document.getElementById('bg-canvas'), alpha:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.position.z = 5;
+
+    const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+    const material = new THREE.MeshBasicMaterial({color:0xd4a373, wireframe:true});
+    const torusKnot = new THREE.Mesh(geometry, material);
+    scene.add(torusKnot);
+
+    function animate(){
+      requestAnimationFrame(animate);
+      torusKnot.rotation.x += 0.005;
+      torusKnot.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
