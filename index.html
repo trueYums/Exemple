@@ -3,592 +3,101 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Leon Santé Industrie — Innovation pharmaceutique locale</title>
-  <meta name="description" content="Leon Santé Industrie conçoit, développe et produit des molécules pharmaceutiques pour l'île d’Unreallife. Fiabilité, réactivité et production locale.">
-  <!-- Favicon minimal (capsule) -->
-  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect rx="14" width="64" height="64" fill="%230b1b2a"/><g transform="translate(12,18)"><rect width="40" height="16" rx="8" fill="%2340c4ff"/><rect x="0" y="16" width="40" height="16" rx="8" fill="%23a2f5d5"/></g></svg>'>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <title>Leon Santé Industrie</title>
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><rect rx="14" width="64" height="64" fill="%230b1b2a"/><text x="50%" y="55%" font-size="28" text-anchor="middle" fill="white" font-family="sans-serif">LSI</text></svg>'>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#07111b;
-      --bg-2:#0b1b2a;
-      --card:rgba(255,255,255,0.12);
-      --card-2:rgba(255,255,255,0.08);
-      --stroke:rgba(255,255,255,0.22);
-      --text:#eaf6ff;
-      --muted:#b9d4e6;
-      --accent:#40c4ff;
-      --accent-2:#38f2c6;
-      --warn:#ffd166;
-      --grad-1:#0ea5e9;
-      --grad-2:#22d3ee;
-      --grad-3:#34d399;
-      --shadow:0 10px 30px rgba(0,0,0,0.35);
-      --radius:18px;
-      --glass-blur:14px;
-      --max:1200px;
+      --bg:#07111b; --card:rgba(255,255,255,0.08);
+      --stroke:rgba(255,255,255,0.15); --text:#eaf6ff;
+      --muted:#b9d4e6; --accent:#40c4ff; --accent-2:#38f2c6;
+      --radius:16px; --max:1100px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background: radial-gradient(1200px 800px at 10% -10%, #10314a 0%, transparent 55%),
-                  radial-gradient(1000px 700px at 110% 10%, #0b2c3f 0%, transparent 55%),
-                  linear-gradient(180deg, var(--bg) 0%, #06101a 100%);
-      overflow-x:hidden;
-    }
-
-    /* Animated gradient halo */
-    .gradient-halo::before{
-      content:"";
-      position:fixed; inset:-20vmax;
-      background:
-        conic-gradient(from 0deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-1));
-      filter: blur(120px) saturate(150%);
-      opacity:.15;
-      animation:spin 24s linear infinite;
-      z-index:-2;
-    }
-    @keyframes spin{to{transform:rotate(360deg)}}
-
-    /* Canvas layer for Three.js */
-    #bg3d{
-      position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.9;
-    }
-
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter:saturate(140%) blur(10px);
-      background:linear-gradient(180deg, rgba(7,17,27,.85) 0%, rgba(7,17,27,.5) 100%);
-      border-bottom:1px solid var(--stroke);
-    }
-    .nav{
-      max-width:var(--max); margin:0 auto; padding:14px 20px;
-      display:flex; align-items:center; gap:16px; justify-content:space-between;
-    }
-    .brand{display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--text)}
-    .brand-badge{
-      width:36px; height:36px; border-radius:10px;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow:var(--shadow);
-      display:grid; place-items:center; font-weight:800; color:#001019;
-    }
-    .nav a{color:var(--muted); text-decoration:none; font-weight:500}
-    .nav .links{display:flex; gap:18px; align-items:center}
-    .cta{
-      appearance:none; border:1px solid transparent; border-radius:14px;
-      padding:10px 16px; font-weight:700; cursor:pointer;
-      background:linear-gradient(135deg, var(--accent), var(--accent-2));
-      color:#041318; box-shadow:var(--shadow); transform:translateZ(0);
-      transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
-    }
-    .cta:hover{transform:translateY(-2px); filter:saturate(120%)}
-
-    .hero{
-      max-width:var(--max); margin:0 auto; padding:90px 20px 40px;
-      display:grid; gap:28px;
-      grid-template-columns: 1.1fr .9fr;
-    }
-    @media (max-width:980px){ .hero{grid-template-columns:1fr; padding-top:70px} }
-
-    .hero-card{
-      background:var(--card);
-      border:1px solid var(--stroke);
-      border-radius:var(--radius);
-      backdrop-filter: blur(var(--glass-blur));
-      padding:28px;
-      box-shadow:var(--shadow);
-    }
-    .kicker{letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-weight:700; font-size:.78rem}
-    h1{
-      font-size: clamp(2rem, 4.5vw, 3.2rem);
-      line-height:1.1; margin:10px 0 14px; font-weight:800;
-      background:linear-gradient(90deg, #eaf6ff, #c8f5ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-    }
-    .lead{color:var(--muted); font-size:1.05rem}
-    .hero-actions{display:flex; gap:12px; margin-top:16px; flex-wrap:wrap}
-    .ghost{
-      background:transparent; color:var(--text);
-      border:1px solid var(--stroke); border-radius:14px; padding:10px 16px; font-weight:700; cursor:pointer;
-      transition:background .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .ghost:hover{background:var(--card-2); border-color:var(--muted);}
-
-    .stats{
-      display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px;
-    }
-    @media (max-width:680px){ .stats{grid-template-columns:1fr 1fr} }
-    .stat{
-      background:var(--card-2); border:1px solid var(--stroke); border-radius:14px; padding:16px;
-      display:flex; gap:12px; align-items:center;
-    }
-    .stat .n{font-size:1.6rem; font-weight:800}
-    .icon{width:22px; height:22px; flex:0 0 22px}
-
-    section{max-width:var(--max); margin:0 auto; padding:40px 20px}
-    .section-title{font-size:clamp(1.4rem,2.5vw,2rem); margin:0 0 8px; font-weight:800}
-    .section-sub{color:var(--muted); margin:0 0 24px}
-
-    .grid{
-      display:grid; grid-template-columns:repeat(12,1fr); gap:18px;
-    }
-    .card{
-      grid-column: span 4;
-      background:var(--card); border:1px solid var(--stroke); border-radius:var(--radius);
-      backdrop-filter: blur(var(--glass-blur)); padding:22px; box-shadow:var(--shadow);
-      transition:transform .25s ease, outline .25s ease;
-      outline:1px solid transparent;
-    }
-    .card:hover{transform:translateY(-4px); outline:1px solid var(--accent)}
-    @media (max-width:980px){ .card{grid-column: span 6} }
-    @media (max-width:680px){ .card{grid-column: span 12} }
-
-    .badge{
-      display:inline-flex; gap:8px; align-items:center;
-      padding:6px 10px; border-radius:999px;
-      background:linear-gradient(135deg, rgba(64,196,255,.2), rgba(56,242,198,.15));
-      border:1px solid var(--stroke); color:var(--text); font-weight:600; font-size:.85rem;
-    }
-
-    .pill{
-      display:inline-block; padding:6px 10px; border-radius:999px;
-      border:1px solid var(--stroke); color:var(--muted); font-size:.78rem; margin-right:8px; margin-bottom:8px;
-      background:rgba(255,255,255,.03)
-    }
-
-    .feature{
-      display:flex; gap:14px; align-items:flex-start; margin:10px 0;
-    }
-    .feature .icon{opacity:.9}
-
-    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
-
-    .strip{
-      display:grid; grid-template-columns:repeat(5,1fr); gap:16px;
-    }
-    .strip .mini{
-      background:var(--card-2); border:1px solid var(--stroke); border-radius:14px; padding:14px;
-      text-align:center; font-weight:700; color:var(--muted)
-    }
-    @media (max-width:900px){ .strip{grid-template-columns:repeat(2,1fr)} }
-
-    .contact{
-      display:grid; grid-template-columns:1.2fr .8fr; gap:18px;
-    }
-    @media (max-width:900px){ .contact{grid-template-columns:1fr} }
-    input, textarea{
-      width:100%; background:rgba(255,255,255,.04); border:1px solid var(--stroke);
-      border-radius:12px; color:var(--text); padding:12px 14px; outline:none;
-    }
-    textarea{min-height:120px; resize:vertical}
-    form{display:grid; gap:12px}
-    .footer{
-      border-top:1px solid var(--stroke); color:var(--muted);
-      text-align:center; padding:22px 20px 40px;
-    }
-
-    /* Scroll accents */
-    .reveal{opacity:0; transform:translateY(16px);}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; overflow-x:hidden}
+    header{padding:14px 20px; position:sticky; top:0; backdrop-filter:blur(10px); background:rgba(7,17,27,.7); border-bottom:1px solid var(--stroke)}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:700; text-decoration:none; color:var(--text)}
+    .brand-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:700;color:#041318}
+    section{max-width:var(--max);margin:0 auto;padding:50px 20px}
+    h1,h2{font-weight:700}
+    h1{font-size:clamp(1.8rem,5vw,2.8rem);margin-bottom:12px}
+    h2{font-size:clamp(1.4rem,4vw,2rem);margin-bottom:14px}
+    p{color:var(--muted);margin-bottom:18px}
+    .card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);padding:22px;margin-bottom:20px;backdrop-filter:blur(12px)}
+    .grid{display:grid;gap:20px}
+    @media(min-width:700px){.grid-2{grid-template-columns:1fr 1fr}}
+    @media(min-width:900px){.grid-3{grid-template-columns:repeat(3,1fr)}}
+    .cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));border:none;padding:12px 18px;border-radius:12px;color:#041318;font-weight:700;cursor:pointer}
+    footer{border-top:1px solid var(--stroke);padding:20px;text-align:center;color:var(--muted);font-size:.9rem}
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(20px)}
   </style>
 </head>
-<body class="gradient-halo">
+<body>
   <canvas id="bg3d" aria-hidden="true"></canvas>
 
   <header>
-    <nav class="nav">
-      <a class="brand" href="#">
-        <span class="brand-badge">LSI</span>
-        <span style="font-weight:800;">Leon Santé Industrie</span>
-      </a>
-      <div class="links">
-        <a href="#presentation">Présentation</a>
-        <a href="#mission">Mission</a>
-        <a href="#activites">Activités</a>
-        <a href="#marche">Marché</a>
-        <a href="#vision">Vision</a>
-        <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Nous contacter</button>
-      </div>
-    </nav>
+    <a class="brand" href="#">
+      <span class="brand-badge">LSI</span> Leon Santé Industrie
+    </a>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-card reveal">
-        <div class="kicker">Santé publique • Production locale</div>
-        <h1>Innovation pharmaceutique, <br>exécution industrielle.</h1>
-        <p class="lead">
-          Née de l’association des frères <strong>Marc</strong> (PhD chimie pharmaceutique) et <strong>Lucas Leon</strong> (direction industrielle),
-          Leon Santé Industrie conçoit, développe et produit des molécules d’intérêt majeur pour l’île d’Unreallife. ⚗️🏭
-        </p>
-        <div class="hero-actions">
-          <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-            <!-- Heroicon: Paper Airplane -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M6 12L3 21l9-3 9-15-15 9Zm0 0l7 7"/></svg>
-            <span style="margin-left:6px">Parler à un expert</span>
-          </button>
-          <button class="ghost" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})">
-            <!-- Heroicon: Information Circle -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M11 10h1v7m-1-9h1"/><path stroke-width="1.6" d="M12 21a9 9 0 100-18 9 9 0 000 18Z"/></svg>
-            <span style="margin-left:6px">Découvrir LSI</span>
-          </button>
-        </div>
+  <section>
+    <h1 class="reveal">Innovation pharmaceutique locale</h1>
+    <p class="reveal">Leon Santé Industrie est née de l’association des frères Marc (expert scientifique) et Lucas Leon (expert industriel). Ensemble, ils conçoivent et produisent des molécules essentielles pour l’île d’Unreallife.</p>
+    <button class="cta reveal">Nous contacter</button>
+  </section>
 
-        <div class="stats">
-          <div class="stat">
-            <!-- Heroicon: Beaker -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M6 3h12M9 3v6.26a2 2 0 01-.4 1.2L5.4 16a4 4 0 003.2 6h6.8a4 4 0 003.2-6l-3.2-5.54a2 2 0 01-.4-1.2V3"/></svg>
-            <div><div class="n" id="c1">0</div><div class="t">lot(s) R&D actifs</div></div>
-          </div>
-          <div class="stat">
-            <!-- Heroicon: Cube Transparent -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M12 2 3 7l9 5 9-5-9-5Zm0 20V12"/></svg>
-            <div><div class="n" id="c2">0</div><div class="t">capabilités intégrées</div></div>
-          </div>
-          <div class="stat">
-            <!-- Heroicon: Shield Check -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M12 3l7 4v5c0 5-3.1 7.5-7 9-3.9-1.5-7-4-7-9V7l7-4Z"/><path stroke-width="1.6" d="M9 12l2 2 4-4"/></svg>
-            <div><div class="n" id="c3">0</div><div class="t">engagements qualité</div></div>
-          </div>
-        </div>
-      </div>
+  <section>
+    <h2 class="reveal">Notre mission</h2>
+    <div class="card reveal">
+      <p>Concevoir, développer et produire des molécules pharmaceutiques essentielles. Offrir des solutions fiables et accessibles. Contribuer activement à la santé publique.</p>
+    </div>
+  </section>
 
-      <div class="hero-card reveal">
-        <span class="badge">
-          <!-- Heroicon: Sparkles -->
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M9 8l3-6 3 6 6 3-6 3-3 6-3-6-6-3 6-3Z"/></svg>
-          Production locale fiable
-        </span>
-        <h3 style="margin:14px 0 8px; font-weight:800;">Modèle intégré, de la conception à l’approvisionnement</h3>
-        <p class="lead">Recherche, production, contrôle qualité et distribution sous un même toit. Délais réduits. Traçabilité totale.</p>
-        <div class="strip" style="margin-top:12px">
-          <div class="mini">R&D molécules</div>
-          <div class="mini">GMP mindset</div>
-          <div class="mini">CQ & conformité</div>
-          <div class="mini">Supply sécurisé</div>
-          <div class="mini">Support partenaires</div>
-        </div>
-      </div>
-    </section>
+  <section>
+    <h2 class="reveal">Activités</h2>
+    <div class="grid grid-3">
+      <div class="card reveal"><h3>R&D</h3><p>Conception de molécules selon les priorités médicales.</p></div>
+      <div class="card reveal"><h3>Production</h3><p>Processus conformes aux standards internationaux.</p></div>
+      <div class="card reveal"><h3>Distribution</h3><p>Approvisionnement fluide vers nos partenaires.</p></div>
+    </div>
+  </section>
 
-    <!-- PRÉSENTATION -->
-    <section id="presentation">
-      <h2 class="section-title reveal">Présentation de l’entreprise</h2>
-      <p class="section-sub reveal">Leon Santé Industrie est née de la complémentarité de <strong>Marc Leon</strong>, docteur en chimie pharmaceutique, et <strong>Lucas Leon</strong>, expert en direction industrielle. Leur vision commune : un acteur local réactif, fiable et durable au service de la santé publique.</p>
+  <section>
+    <h2 class="reveal">Marché cible</h2>
+    <div class="grid grid-3">
+      <div class="card reveal"><h3>Sapeurs-Pompiers</h3><p>Produits disponibles rapidement pour l’urgence.</p></div>
+      <div class="card reveal"><h3>Hôpitaux</h3><p>Continuité de service et visibilité budgétaire.</p></div>
+      <div class="card reveal"><h3>Pharmacies</h3><p>Stocks maîtrisés et délais réduits.</p></div>
+    </div>
+  </section>
 
-      <div class="grid">
-        <article class="card reveal">
-          <div class="feature">
-            <!-- Heroicon: Academic Cap -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M12 14l-9-5 9-5 9 5-9 5Z"/><path stroke-width="1.6" d="M4 10v6a8 8 0 0016 0v-6"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Expertise scientifique</h3>
-              <p>Conception et développement de molécules innovantes. Approche rigoureuse orientée efficacité et sécurité.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <div class="feature">
-            <!-- Heroicon: Cog 6-tooth -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M10 3h4l1 3 3 1v4l-3 1-1 3h-4l-1-3-3-1V7l3-1 1-3Z"/><circle cx="12" cy="12" r="3" stroke-width="1.6"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Excellence opérationnelle</h3>
-              <p>Organisation industrielle éprouvée. Équipes pilotées pour la performance et la fiabilité à grande échelle.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <div class="feature">
-            <!-- Heroicon: Globe Alt -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M21 12A9 9 0 113 12a9 9 0 0118 0Z"/><path stroke-width="1.6" d="M3 12h18M12 3c3.5 3.5 3.5 14.5 0 18"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Ancrage territorial</h3>
-              <p>Indépendance pharmaceutique renforcée. Disponibilité rapide et coûts maîtrisés pour l’île d’Unreallife.</p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
+  <section>
+    <h2 class="reveal">Vision</h2>
+    <div class="card reveal"><p>Devenir une référence de l’industrie pharmaceutique locale, avec des relations durables basées sur la confiance et l’innovation responsable.</p></div>
+  </section>
 
-    <!-- MISSION -->
-    <section id="mission">
-      <h2 class="section-title reveal">Notre mission</h2>
-      <p class="section-sub reveal">Concevoir, développer et produire des molécules pharmaceutiques essentielles. Offrir des solutions thérapeutiques fiables et accessibles. Contribuer à la santé publique avec une éthique forte.</p>
-      <div class="grid">
-        <div class="card reveal" style="grid-column:span 6">
-          <span class="pill">Fiabilité</span><span class="pill">Accessibilité</span><span class="pill">Qualité</span>
-          <p style="margin-top:8px">Nous réduisons la dépendance aux importations et garantissons la continuité d’approvisionnement pour nos partenaires.</p>
-          <div class="cta-row">
-            <button class="cta">Demander un échange</button>
-            <button class="ghost" onclick="alert('Plaquette disponible sur demande.')">Demander la plaquette PDF</button>
-          </div>
-        </div>
-        <div class="card reveal" style="grid-column:span 6">
-          <div class="feature">
-            <!-- Heroicon: Heart -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M21 8a5 5 0 00-9-3 5 5 0 00-9 3c0 5 9 9 9 9s9-4 9-9Z"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Santé publique au centre</h3>
-              <p>Impact tangible pour la population locale grâce à des solutions adaptées et disponibles.</p>
-            </div>
-          </div>
-          <div class="feature">
-            <!-- Heroicon: Bolt -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M13 3L4 14h6l-1 7 9-11h-6l1-7Z"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Réactivité</h3>
-              <p>Chaînes courtes. Décisions rapides. Production maîtrisée.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <footer>© <span id="year"></span> Leon Santé Industrie</footer>
 
-    <!-- ACTIVITÉS -->
-    <section id="activites">
-      <h2 class="section-title reveal">Activités principales</h2>
-      <p class="section-sub reveal">Un modèle intégré pour la maîtrise, l’efficacité et la sécurité.</p>
-      <div class="grid">
-        <article class="card reveal">
-          <!-- Heroicon: Flask (beaker) -->
-          <div class="feature">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M6 3h12M9 3v6.3a2 2 0 01-.4 1.2L5.4 16a4 4 0 003.2 6h6.8a4 4 0 003.2-6l-3.2-5.5a2 2 0 01-.4-1.2V3"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Recherche & Développement</h3>
-              <p>Conception et optimisation de molécules selon les priorités médicales.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <!-- Heroicon: Building Factory (approx with cube + cog) -->
-          <div class="feature">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M3 21h18M4 21V8l6 4V8l6 4V8l4 3v10"/><path stroke-width="1.6" d="M7 21v-4h4v4M15 21v-6h4v6"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Production</h3>
-              <p>Processus conformes aux standards internationaux. Traçabilité et robustesse.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <!-- Heroicon: Shield Check -->
-          <div class="feature">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M12 3l7 4v5c0 5-3.1 7.5-7 9-3.9-1.5-7-4-7-9V7l7-4Z"/><path stroke-width="1.6" d="M9 12l2 2 4-4"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Contrôle qualité</h3>
-              <p>Laboratoires de contrôle dédiés. Conformité et sécurité garanties.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <!-- Heroicon: Truck -->
-          <div class="feature">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M3 17h12v-6H3v6Zm12 0h3l3-3v-3h-6v6Z"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17.5" cy="17.5" r="1.8"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Distribution</h3>
-              <p>Approvisionnement fluide vers nos partenaires de santé. Fourgon LSI 🚚.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <!-- Heroicon: Clipboard Document Check -->
-          <div class="feature">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M9 3h6l1 2h2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2h2l1-2Z"/><path stroke-width="1.6" d="M9 14l2 2 4-4"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Consommables & matières</h3>
-              <p>Gestion rigoureuse des intrants et consommables critiques.</p>
-            </div>
-          </div>
-        </article>
-        <article class="card reveal">
-          <!-- Heroicon: Users -->
-          <div class="feature">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M16 14a4 4 0 10-8 0v3H3v1h18v-1h-5v-3Z"/><circle cx="12" cy="8" r="3" stroke-width="1.6"/></svg>
-            <div>
-              <h3 style="margin:0 0 6px">Support partenaires</h3>
-              <p>Accompagnement opérationnel des hôpitaux, pharmacies et Sapeurs-Pompiers.</p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- MARCHÉ CIBLE -->
-    <section id="marche">
-      <h2 class="section-title reveal">Marché cible</h2>
-      <p class="section-sub reveal">Sapeurs-Pompiers, hôpitaux, pharmacies. Approvisionnement sécurisé, rapide et adapté.</p>
-      <div class="grid">
-        <div class="card reveal">
-          <h3 style="margin:0 0 6px">Sapeurs-Pompiers</h3>
-          <p>Produits disponibles rapidement pour l’urgence pré-hospitalière.</p>
-        </div>
-        <div class="card reveal">
-          <h3 style="margin:0 0 6px">Hôpitaux</h3>
-          <p>Continuité de service et visibilité budgétaire.</p>
-        </div>
-        <div class="card reveal">
-          <h3 style="margin:0 0 6px">Pharmacies</h3>
-          <p>Stocks maîtrisés et délais de réassort raccourcis.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- VISION -->
-    <section id="vision">
-      <h2 class="section-title reveal">Vision</h2>
-      <p class="section-sub reveal">Confiance, sécurité d’approvisionnement, continuité de service. Innovation responsable et ancrage territorial.</p>
-      <div class="grid">
-        <div class="card reveal" style="grid-column:span 8">
-          <h3 style="margin:0 0 6px">Ambition</h3>
-          <p>Devenir une référence incontournable de l’industrie pharmaceutique sur l’île d’Unreallife, avec un impact durable.</p>
-        </div>
-        <div class="card reveal" style="grid-column:span 4">
-          <h3 style="margin:0 0 6px">Principes</h3>
-          <p>Éthique, transparence, amélioration continue.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2 class="section-title reveal">Contact</h2>
-      <p class="section-sub reveal">Expliquez votre besoin. Réponse rapide par un membre de l’équipe.</p>
-      <div class="contact">
-        <form class="card reveal" onsubmit="event.preventDefault(); alert('Merci. Votre message est pris en compte.'); this.reset();">
-          <div style="display:grid; gap:12px; grid-template-columns:1fr 1fr">
-            <input required placeholder="Nom" />
-            <input required placeholder="Email" type="email" />
-          </div>
-          <input placeholder="Organisation" />
-          <textarea placeholder="Votre message"></textarea>
-          <button class="cta" type="submit">Envoyer</button>
-          <button class="ghost" type="reset">Réinitialiser</button>
-        </form>
-        <div class="card reveal">
-          <h3 style="margin:0 0 6px">Informations</h3>
-          <p>Leon Santé Industrie — Unreallife</p>
-          <p><strong>Partenariats & achats</strong> · supply@lsi.example</p>
-          <p><strong>Support médical</strong> · medical@lsi.example</p>
-          <div class="feature">
-            <!-- Heroicon: Phone -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-width="1.6" d="M2 6l4-2 4 8-3 2a16 16 0 008 8l2-3 8 4-2 4c-8 0-15-7-15-15L2 6Z"/></svg>
-            <div>+000 000 000</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    © <span id="year"></span> Leon Santé Industrie — Qualité, réactivité, responsabilité.
-  </footer>
-
-  <!-- GSAP + ScrollTrigger -->
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <!-- Three.js -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-
   <script>
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // GSAP reveals
-    gsap.utils.toArray('.reveal').forEach((el,i)=>{
-      gsap.fromTo(el,{opacity:0,y:16},{opacity:1,y:0,duration:.8,delay:i*0.05,ease:"power2.out",
-        scrollTrigger:{trigger:el,start:"top 85%"}});
+    document.getElementById('year').textContent=new Date().getFullYear();
+    gsap.utils.toArray('.reveal').forEach(el=>{
+      gsap.fromTo(el,{opacity:0,y:20},{opacity:1,y:0,duration:.8,scrollTrigger:{trigger:el,start:"top 85%"}});
     });
-
-    // Counter animation
-    function countTo(id, end, dur=1.4){
-      const el=document.getElementById(id); if(!el) return;
-      const obj={v:0};
-      gsap.to(obj,{v:end, duration:dur, ease:"power2.out",
-        onUpdate(){ el.textContent = Math.round(obj.v).toLocaleString('fr-FR'); }});
-    }
-    countTo('c1', 12);
-    countTo('c2', 4);
-    countTo('c3', 7);
-
-    // Three.js subtle 3D: rotating molecular lattice
-    const canvas = document.getElementById('bg3d');
-    const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 100);
-    camera.position.set(0,0,7);
-
-    const group = new THREE.Group(); scene.add(group);
-
-    // Gradient-like lighting
-    const light1 = new THREE.PointLight(0x39d9ff, 1.2, 50); light1.position.set(5,5,6);
-    const light2 = new THREE.PointLight(0x32f5c6, 1.0, 50); light2.position.set(-6,-4,4);
-    const amb = new THREE.AmbientLight(0x446688, .25);
-    scene.add(light1, light2, amb);
-
-    // Nodes (atoms)
-    const nodes = [];
-    const nodeMat = new THREE.MeshPhysicalMaterial({
-      color:0x8be9ff, transmission:.6, thickness:.8, roughness:.2, metalness:.1, clearcoat:.6
-    });
-    const sphere = new THREE.SphereGeometry(0.08, 22, 22);
-
-    for(let i=0;i<160;i++){
-      const m = new THREE.Mesh(sphere, nodeMat);
-      const r = 2.6 + Math.random()*1.1;
-      const t = Math.random()*Math.PI*2;
-      const p = Math.acos(2*Math.random()-1);
-      m.position.set(r*Math.sin(p)*Math.cos(t), r*Math.sin(p)*Math.sin(t), r*Math.cos(p));
-      group.add(m); nodes.push(m);
-    }
-
-    // Links (bonds)
-    const bonds = [];
-    const bondMat = new THREE.MeshBasicMaterial({color:0x5fe7d2, transparent:true, opacity:.18});
-    const cylGeom = new THREE.CylinderGeometry(0.01,0.01,1,8);
-    for(let i=0;i<140;i++){
-      const a = nodes[Math.floor(Math.random()*nodes.length)];
-      const b = nodes[Math.floor(Math.random()*nodes.length)];
-      if(a===b) continue;
-      const cyl = new THREE.Mesh(cylGeom, bondMat);
-      group.add(cyl); bonds.push([cyl,a,b]);
-    }
-
-    // Resize
-    function onResize(){
-      const w = window.innerWidth, h = window.innerHeight;
-      renderer.setSize(w,h,false);
-      camera.aspect = w/h; camera.updateProjectionMatrix();
-    }
-    window.addEventListener('resize', onResize); onResize();
-
-    // Render loop
-    let t=0;
-    function animate(){
-      requestAnimationFrame(animate);
-      t+=0.005;
-      group.rotation.y += 0.0016;
-      group.rotation.x = Math.sin(t)*0.08;
-      // update bonds
-      bonds.forEach(([c,a,b])=>{
-        const mid = a.position.clone().add(b.position).multiplyScalar(0.5);
-        c.position.copy(mid);
-        c.scale.set(1, a.position.distanceTo(b.position), 1);
-        c.lookAt(b.position);
-        c.rotateX(Math.PI/2);
-      });
-      renderer.render(scene,camera);
-    }
-    animate();
-
-    // Smooth anchor scroll for nav links
-    document.querySelectorAll('.links a').forEach(a=>{
-      a.addEventListener('click', e=>{
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth'});
-      });
-    });
+    // Three.js background spheres
+    const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg3d'),alpha:true});
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,0.1,100);camera.position.z=6;
+    const light=new THREE.PointLight(0x40c4ff,1,50);light.position.set(5,5,5);scene.add(light);
+    const mat=new THREE.MeshStandardMaterial({color:0x38f2c6,metalness:.3,roughness:.4});
+    for(let i=0;i<50;i++){const g=new THREE.SphereGeometry(0.1,16,16);const m=new THREE.Mesh(g,mat);m.position.set((Math.random()-0.5)*8,(Math.random()-0.5)*8,(Math.random()-0.5)*8);scene.add(m);}
+    function resize(){renderer.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();}
+    window.addEventListener('resize',resize);resize();
+    (function anim(){requestAnimationFrame(anim);scene.rotation.y+=0.0015;renderer.render(scene,camera);})();
   </script>
 </body>
 </html>
