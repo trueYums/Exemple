@@ -1,371 +1,406 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Boulangerie Pop — Depuis 1880</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Serrurerie Bondoufle — Dépannage 24/7</title>
+  <meta name="description" content="Serrurerie à Bondoufle. Ouverture de porte, blindage, pose de serrures. Intervention rapide 24/7. 01 69 24 03 81." />
 
-  <!-- Favicon (pain doré) -->
-  <link rel="icon" type="image/svg+xml"
-    href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="4" y="18" width="56" height="28" rx="12" fill="%23d4a373"/><path d="M16 27h8M28 27h8M40 27h8" stroke="%23fff" stroke-width="4" stroke-linecap="round"/></svg>'>
+  <!-- Favicon simple (cadenas) -->
+  <link rel="icon" href='data:image/svg+xml;utf8,
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="12" fill="%2322262a"/>
+    <g transform="translate(12,10)">
+      <rect x="6" y="20" width="28" height="22" rx="6" fill="%23ffcc00" />
+      <path d="M20 20 v-6 a8 8 0 1 1 16 0 v6" fill="none" stroke="%23ffcc00" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </svg>'/>
 
-  <!-- Polices traditionnelles -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <!-- Police (choisie pour le contexte) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --beige:#f4efe6;
-      --beige-2:#efe7da;
-      --brun:#5a3d2e;
-      --doré:#d4a373;
-      --blanc:#ffffff;
-      --verre:rgba(255,255,255,.6);
-      --bord:rgba(255,255,255,.35);
-      --ombre:rgba(0,0,0,.08);
-      --radius:14px;
-      --pad:clamp(16px, 3vw, 28px);
-      --max:1100px;
+      --anthracite:#22262a;
+      --anthracite-800:#1a1e22;
+      --anthracite-700:#2a2f34;
+      --yellow:#ffcc00;
+      --yellow-600:#ffb700;
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-stroke: rgba(255,255,255,0.18);
+      --text:#e9edf1;
+      --muted:#b8c0c8;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 16px;
+      --gap: 24px;
+      --maxw: 1200px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:"Source Serif 4", serif;
-      color:var(--brun);
-      background:
-        radial-gradient(1200px 800px at 70% -10%, #eadbc7 0%, transparent 60%),
-        radial-gradient(900px 600px at -10% 20%, #fff0db 0%, transparent 60%),
-        var(--beige);
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 20% -10%, #394049 0%, #22262a 60%) fixed,
+                  linear-gradient(120deg, #1a1e22, #22262a 60%, #2a2f34);
       overflow-x:hidden;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
     }
 
-    /* Canvas décor farine + croissant */
-    #bg-canvas{
-      position:fixed; inset:0;
-      z-index:-1;
-      display:block;
-      pointer-events:none;
+    /* Animated gradient haze */
+    .bg-haze::before{
+      content:"";
+      position:fixed; inset:-20vmax;
+      background:
+        radial-gradient(40vmax 35vmax at 12% 20%, rgba(255,204,0,0.15), transparent 60%),
+        radial-gradient(35vmax 30vmax at 85% 15%, rgba(255,204,0,0.10), transparent 60%),
+        radial-gradient(45vmax 40vmax at 60% 90%, rgba(255,255,255,0.05), transparent 60%);
+      filter:blur(40px);
+      z-index:-2;
+      animation: floatHaze 24s ease-in-out infinite alternate;
+    }
+    @keyframes floatHaze{
+      0%{transform:translateY(-2%) scale(1)}
+      100%{transform:translateY(2%) scale(1.05)}
     }
 
-    /* Barre */
     header{
-      position:sticky; top:0; z-index:20;
-      background:color-mix(in srgb, var(--beige) 60%, transparent);
-      backdrop-filter:saturate(1.2) blur(10px);
-      border-bottom:1px solid var(--bord);
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0)) ;
+      border-bottom:1px solid var(--glass-stroke);
     }
-    .nav{
-      max-width:var(--max); margin:auto;
-      padding:10px var(--pad); display:flex; align-items:center; justify-content:space-between; gap:8px;
+    .wrap{max-width:var(--maxw); margin:auto; padding:16px 20px; display:flex; gap:16px; align-items:center; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px}
+    .badge{
+      width:40px; height:40px; border-radius:10px;
+      background:linear-gradient(145deg, #2a2f34, #1a1e22);
+      border:1px solid var(--glass-stroke);
+      display:grid; place-items:center;
+      box-shadow:var(--shadow);
     }
-    .brand{display:flex; align-items:center; gap:10px; font-family:"Cormorant Garamond", serif; font-weight:700; letter-spacing:.3px}
-    .brand .marque{font-size:clamp(20px, 4.5vw, 30px)}
-    .tag{font-size:12px; opacity:.8}
+    .brand h1{font-size:18px; margin:0; letter-spacing:.3px}
+    .brand small{display:block; color:var(--muted); font-weight:300; margin-top:-2px}
 
-    /* Icônes Heroicons inline (quelques essentiels) */
-    .icon{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.5}
-    .btn-ghost{appearance:none; border:0; background:transparent; padding:10px; border-radius:10px}
-    .btn-ghost:active{transform:scale(.98)}
-
-    /* Menu */
-    #menu{display:flex; gap:14px; align-items:center}
-    #menu a{display:flex; align-items:center; gap:8px; text-decoration:none; color:var(--brun); font-weight:600}
-    #menu a span{display:none}
-    @media(min-width:720px){#menu a span{display:inline}}
-    #hamb{display:inline-flex}
-    @media(min-width:900px){#hamb{display:none}}
-
-    /* Drawer mobile */
-    .drawer{
-      position:fixed; inset:0; background:rgba(0,0,0,.25); backdrop-filter: blur(2px);
-      display:none; z-index:30;
+    .callout{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:12px;
+      background: rgba(255,204,0,0.1);
+      border:1px solid rgba(255,204,0,0.35);
+      transition:transform .25s ease;
+      text-decoration:none; color:var(--text);
+      font-weight:600;
     }
-    .drawer[aria-hidden="false"]{display:block}
-    .panel{
-      position:absolute; right:0; top:0; height:100%; width:min(86%, 360px);
-      background:var(--beige-2); border-left:1px solid var(--bord);
-      box-shadow:-6px 0 20px var(--ombre); padding:28px;
-      display:flex; flex-direction:column; gap:16px;
-    }
-    .panel a{padding:14px 10px; border-radius:10px; text-decoration:none; color:var(--brun); background:var(--verre); border:1px solid var(--bord)}
+    .callout:hover{transform:translateY(-2px)}
 
-    /* Hero */
     .hero{
-      max-width:var(--max); margin:auto; padding:clamp(28px,7vw,70px) var(--pad);
-      display:grid; gap:26px;
+      position:relative; padding:80px 20px 40px 20px;
+      display:grid; place-items:center;
+      text-align:center;
     }
-    .titre{
-      font-family:"Cormorant Garamond", serif;
-      font-size:clamp(28px, 7vw, 56px);
-      line-height:1.05;
+    .hero-card{
+      width:min(980px, 92vw);
+      background:var(--glass-bg);
+      border:1px solid var(--glass-stroke);
+      border-radius:var(--radius);
+      padding:40px 26px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(12px);
+      position:relative;
+      overflow:hidden;
     }
-    .sous{font-style:italic; color:var(--doré); font-size:clamp(14px, 2.8vw, 18px)}
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:8px 12px; border-radius:999px;
+      background:rgba(255,204,0,0.14);
+      border:1px solid rgba(255,204,0,0.35);
+      font-size:12px; color:#ffe88a;
+      margin-bottom:14px;
+    }
+    .hero h2{font-size:38px; line-height:1.15; margin:0 0 10px}
+    .hero p{margin:0 0 20px; color:var(--muted)}
     .cta{
       display:inline-flex; align-items:center; gap:10px;
-      padding:12px 18px; border-radius:999px;
-      background:linear-gradient(135deg, var(--doré), #e7b983);
-      color:var(--blanc); text-decoration:none; font-weight:700;
-      box-shadow:0 6px 18px rgba(212,163,115,.35);
-      transform:translateZ(0);
+      padding:14px 18px; border-radius:14px;
+      background:linear-gradient(135deg, var(--yellow), var(--yellow-600));
+      color:#1a1e22; font-weight:700; text-decoration:none;
+      box-shadow: 0 10px 24px rgba(255,204,0,0.25);
+      transform: translateZ(0);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
-    .cta:hover{filter:saturate(1.05)}
+    .cta:hover{transform: translateY(-2px); box-shadow: 0 16px 30px rgba(255,204,0,0.28)}
+    .cta small{font-weight:600; opacity:.85}
+
     .grid{
-      max-width:var(--max); margin:auto; padding:0 var(--pad) clamp(40px,10vw,90px);
-      display:grid; grid-template-columns:1fr; gap:22px;
+      max-width:var(--maxw); margin:40px auto; padding:0 20px;
+      display:grid; grid-template-columns: repeat(12, 1fr); gap:var(--gap);
     }
-    @media(min-width:860px){.grid{grid-template-columns:1fr 1fr}}
-
     .card{
-      background:var(--verre); border:1px solid var(--bord); border-radius:var(--radius);
-      box-shadow:0 12px 30px var(--ombre); padding:clamp(16px, 3.5vw, 26px)
+      grid-column: span 6;
+      background:var(--glass-bg);
+      border:1px solid var(--glass-stroke);
+      border-radius:var(--radius);
+      padding:22px;
+      backdrop-filter: blur(10px);
+      box-shadow:var(--shadow);
+      min-height:160px;
     }
-    .card h2{
-      font-family:"Cormorant Garamond", serif; font-size:clamp(22px, 4.6vw, 34px); margin:0 0 8px
-    }
-    .card p{margin:0; line-height:1.6}
-    .liste{display:grid; gap:10px; margin-top:10px}
-    .item{display:flex; align-items:flex-start; gap:10px}
-    .bullet{font-size:20px; line-height:1.1}
+    .card h3{margin:0 0 10px}
+    .list{display:grid; gap:10px; margin:0; padding:0; list-style:none}
+    .list li{display:flex; gap:10px; align-items:flex-start}
+    .list svg{flex:0 0 20px}
 
-    /* Pied */
+    .contact{
+      max-width:var(--maxw); margin:40px auto 80px; padding:0 20px;
+      display:grid; grid-template-columns: repeat(12, 1fr); gap:var(--gap);
+    }
+    .contact .col{grid-column: span 6}
+    .info{
+      background:var(--glass-bg);
+      border:1px solid var(--glass-stroke);
+      border-radius:var(--radius);
+      padding:20px;
+      backdrop-filter: blur(10px);
+      box-shadow:var(--shadow);
+    }
+    .info a{color:var(--text); text-decoration:none}
+    .info a:hover{text-decoration:underline}
+
     footer{
-      margin-top:30px; background:var(--brun); color:var(--beige);
-      padding:24px var(--pad); text-align:center; font-size:14px
+      margin-top:40px; padding:30px 20px;
+      border-top:1px solid var(--glass-stroke);
+      color:var(--muted); text-align:center;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.25));
     }
 
-    /* Accessibilité et mobile */
-    @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto!important; animation:none!important; transition:none!important}
+    /* Responsive */
+    @media (max-width: 900px){
+      .card{grid-column: span 12}
+      .contact .col{grid-column: span 12}
+      .hero h2{font-size:30px}
+    }
+
+    /* Three.js canvas overlay */
+    #orbit{
+      position:absolute; inset: -60px -10px auto auto;
+      width:260px; height:260px; pointer-events:none; opacity:.6;
+      filter: drop-shadow(0 10px 40px rgba(255,204,0,0.15));
     }
   </style>
 </head>
-<body>
-  <!-- Décor 3D : croissant filaire très subtil -->
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-  <!-- Icônes Heroicons inline (sprite minimal) -->
-  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
-    <!-- bars-3 -->
-    <symbol id="i-bars" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5M3.75 12h16.5M3.75 18.75h16.5"/>
-    </symbol>
-    <!-- fire -->
-    <symbol id="i-fire" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M12 3.75c0 4.5-3 4.5-3 7.5a3 3 0 0 0 6 0c0-2.25-1.5-3.75-1.5-6 1.5 1 4.5 3.75 4.5 8.25a7.5 7.5 0 1 1-15 0C3 7.5 8.25 5.25 10.5 3.75"/>
-    </symbol>
-    <!-- briefcase -->
-    <symbol id="i-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M9 6.75h6a1.5 1.5 0 0 0-1.5-1.5h-3A1.5 1.5 0 0 0 9 6.75z"/>
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M3.75 9.75h16.5A1.5 1.5 0 0 1 21.75 11.25v7.5A1.5 1.5 0 0 1 20.25 20.25H3.75A1.5 1.5 0 0 1 2.25 18.75v-7.5A1.5 1.5 0 0 1 3.75 9.75zm7.5 3.75h1.5"/>
-    </symbol>
-    <!-- envelope -->
-    <symbol id="i-envelope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 7.5l7.5 5.25a2.25 2.25 0 0 0 2.5 0l6.5-4.55"/>
-      <rect x="3.75" y="6.75" width="16.5" height="10.5" rx="2.25" ry="2.25"/>
-    </symbol>
-    <!-- phone -->
-    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M2.25 6.75c0 8.28 6.72 15 15 15h1.5a2.25 2.25 0 0 0 2.25-2.25v-1.2a1.5 1.5 0 0 0-1.02-1.43l-3.06-1.02a1.5 1.5 0 0 0-1.8.75l-.6 1.2a12 12 0 0 1-6-6l1.2-.6a1.5 1.5 0 0 0 .75-1.8L9.63 4.5A1.5 1.5 0 0 0 8.2 3.48H7a2.25 2.25 0 0 0-2.25 2.25z"/>
-    </symbol>
-    <!-- map-pin -->
-    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round"
-            d="M19.5 10.5c0 6.6-7.5 11.25-7.5 11.25S4.5 17.1 4.5 10.5a7.5 7.5 0 1 1 15 0z"/>
-      <circle cx="12" cy="10.5" r="2.75"/>
-    </symbol>
-    <!-- sparkles -->
-    <symbol id="i-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M8 3.5l1.2 3.3L12.5 8 9.2 9.2 8 12.5 6.8 9.2 3.5 8l3.3-1.2L8 3.5z"/>
-      <path stroke-linecap="round" stroke-linejoin="round" d="M17 5.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z"/>
-      <path stroke-linecap="round" stroke-linejoin="round" d="M15 14l.9 2.4 2.4.9-2.4.9L15 20.6l-.9-2.4-2.4-.9 2.4-.9.9-2.4z"/>
-    </symbol>
-  </svg>
-
+<body class="bg-haze">
+  <!-- Header -->
   <header>
-    <div class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="wrap">
       <div class="brand">
-        <span aria-hidden="true">🥖</span>
+        <div class="badge" aria-hidden="true">
+          <!-- Inline SVG icon (streamlinehq style lock) -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="4" y="10" width="16" height="10" rx="3" stroke="#ffcc00" stroke-width="2"/>
+            <path d="M8 10V7a4 4 0 1 1 8 0v3" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="15" r="1.7" fill="#ffcc00"/>
+            <path d="M12 16.7V18.8" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
         <div>
-          <div class="marque">Boulangerie Pop</div>
-          <div class="tag">« Là où la gourmandise rime avec conscience »</div>
+          <h1>Serrurerie Bondoufle</h1>
+          <small>Ouverture • Blindage • Pose de serrures</small>
         </div>
       </div>
 
-      <nav id="menu">
-        <a href="#histoire" aria-label="Notre histoire"><svg class="icon"><use href="#i-sparkles"/></svg><span>Histoire</span></a>
-        <a href="#four" aria-label="Le four"><svg class="icon"><use href="#i-fire"/></svg><span>Le Four</span></a>
-        <a href="#produits" aria-label="Produits"><span aria-hidden="true">🥐</span><span>Produits</span></a>
-        <a href="#recrutement" aria-label="Recrutement"><svg class="icon"><use href="#i-briefcase"/></svg><span>Recrutement</span></a>
-        <a href="#contact" aria-label="Contact"><svg class="icon"><use href="#i-envelope"/></svg><span>Contact</span></a>
-      </nav>
-
-      <button id="hamb" class="btn-ghost" aria-label="Ouvrir le menu">
-        <svg class="icon"><use href="#i-bars"/></svg>
-      </button>
+      <a class="callout" href="tel:+33169240381" aria-label="Appeler le numéro d'urgence 01 69 24 03 81">
+        <!-- phone icon -->
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 2h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1.1-.9 2-2 2A18 18 0 0 1 4 6c0-1.1.9-2 2-2Z" stroke="#ffcc00" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        Urgence 24/7 : <span style="margin-left:4px; color:#ffcc00;">01&nbsp;69&nbsp;24&nbsp;03&nbsp;81</span>
+      </a>
     </div>
   </header>
 
-  <!-- Drawer mobile -->
-  <div id="drawer" class="drawer" aria-hidden="true">
-    <div class="panel" role="dialog" aria-label="Menu">
-      <a href="#histoire">✨ Histoire</a>
-      <a href="#four">🔥 Le Four</a>
-      <a href="#produits">🥐 Produits</a>
-      <a href="#recrutement">🧰 Recrutement</a>
-      <a href="#contact">✉️ Contact</a>
-      <button id="closeDrawer" class="btn-ghost" style="align-self:flex-end">Fermer</button>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-card" id="heroCard">
+      <div class="pill">
+        <!-- lightning icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8Z" fill="#ffcc00"/>
+        </svg>
+        Intervention rapide à Bondoufle et alentours
+      </div>
+
+      <h2>Dépannage serrurier <span style="color:var(--yellow)">moderne</span> et <span style="color:var(--yellow)">efficace</span></h2>
+      <p>Ouverture de porte, changement de cylindre, renforcement, conseils sécurité. Devis clair. Arrivée rapide.</p>
+
+      <a class="cta" href="tel:+33169240381">
+        <!-- call-forward icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 2h4l2 5-3 2a16 16 0 0 0 6 6l2-3 5 2v4c0 1.1-.9 2-2 2A18 18 0 0 1 4 6c0-1.1.9-2 2-2Z" stroke="#1a1e22" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        Appeler maintenant <small>01&nbsp;69&nbsp;24&nbsp;03&nbsp;81</small>
+      </a>
+
+      <!-- subtle 3D element -->
+      <canvas id="orbit" aria-hidden="true"></canvas>
     </div>
-  </div>
+  </section>
 
-  <main>
-    <section class="hero">
-      <h1 class="titre">« Depuis 1880, un vieux four garde le secret d’un pain magique. » 🌾</h1>
-      <p class="sous">Chaque bouchée réchauffe le cœur autant que le ventre.</p>
-      <a class="cta" href="#produits">Découvrir nos pains <span aria-hidden="true">→</span></a>
-    </section>
+  <!-- Services + Engagements -->
+  <section class="grid">
+    <article class="card">
+      <h3>Services clés</h3>
+      <ul class="list">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10a5 5 0 1 1 10 0v2h2a2 2 0 0 1 2 2v5H3v-5a2 2 0 0 1 2-2h2v-2Z" stroke="#ffcc00" stroke-width="2"/>
+          </svg>
+          Ouverture de portes claquées et verrouillées
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="12" rx="2" stroke="#ffcc00" stroke-width="2"/>
+            <path d="M7 21h10" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Remplacement de serrures et cylindres
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 8h16M6 8v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8" stroke="#ffcc00" stroke-width="2"/>
+            <path d="M9 8V6a3 3 0 1 1 6 0v2" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Pose de portes blindées et renforts
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 12h6l2-3 3 6 2-3h5" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Conseils anti-effraction et maintenance
+        </li>
+      </ul>
+    </article>
 
-    <section id="histoire" class="grid">
-      <article class="card">
-        <h2>Notre Histoire ✨</h2>
-        <p>En 1880, Éloi Clément bâtit son four à pierre. Le quartier y trouva du pain, des nouvelles et des sourires. La recette, transmise en secret, voyagea de génération en génération jusqu’à aujourd’hui.</p>
-        <p style="margin-top:10px">Au tournant des années 2000, <strong>Boulangerie Pop</strong> s’est ouverte au monde, emportant partout la chaleur du vieux four et l’esprit de famille.</p>
-      </article>
-      <article id="four" class="card">
-        <h2>Le Four en Pierre 🔥</h2>
-        <p>Four à sole. Farine de blés sélectionnés. Poussée lente. Croûte dorée. Miellat léger. Résultat : une tradition « aussi chaude que le soleil et aussi douce que la maison ».</p>
-      </article>
-    </section>
+    <article class="card">
+      <h3>Engagements</h3>
+      <ul class="list">
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="#ffcc00" stroke-width="2"/>
+            <path d="M7 12h5l5-4" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Devis clair avant intervention
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="5" stroke="#ffcc00" stroke-width="2"/>
+          </svg>
+          Disponibilité 24/7
+        </li>
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 12l4 4 8-8" stroke="#ffcc00" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Travail propre et garanti
+        </li>
+      </ul>
+    </article>
+  </section>
 
-    <section id="produits" class="grid">
-      <article class="card">
-        <h2>Produits 🥖🥐</h2>
-        <div class="liste">
-          <div class="item"><div class="bullet">🥖</div><p>Baguettes de Tradition française</p></div>
-          <div class="item"><div class="bullet">🍞</div><p>Pains spéciaux : campagne, seigle, graines, complet</p></div>
-          <div class="item"><div class="bullet">🥐</div><p>Viennoiseries « les meilleures de votre vie »</p></div>
-        </div>
-      </article>
-      <article id="recrutement" class="card">
-        <h2>Recrutement 🧰</h2>
-        <p>CDI ouverts : boulangers, pâtissiers, vendeurs/vendeuses.</p>
-        <p style="margin-top:10px">Patron : <strong>Mathew Clément</strong>, 27 ans.</p>
-        <a class="cta" href="#contact"><svg class="icon"><use href="#i-briefcase"/></svg> Postuler</a>
-      </article>
-    </section>
+  <!-- Contact -->
+  <section class="contact" aria-labelledby="contact-title">
+    <div class="col">
+      <div class="info">
+        <h3 id="contact-title">Contact</h3>
+        <p><strong>Urgence :</strong> <a href="tel:+33169240381">01&nbsp;69&nbsp;24&nbsp;03&nbsp;81</a></p>
+        <p><strong>Adresse :</strong> 11 rue Gustave Madiot, 91070 Bondoufle</p>
+        <p><a href="https://maps.google.com/?q=11%20rue%20Gustave%20Madiot%2C%2091070%20Bondoufle" target="_blank" rel="noopener">Voir sur la carte</a></p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="info">
+        <h3>Demande rapide</h3>
+        <form onsubmit="event.preventDefault(); alert('Merci. Nous vous rappelons rapidement au numéro indiqué.');">
+          <label for="nom">Nom</label><br/>
+          <input id="nom" name="nom" required style="width:100%; margin:6px 0 12px; padding:12px; border-radius:10px; border:1px solid var(--glass-stroke); background:rgba(0,0,0,0.25); color:var(--text)"/>
 
-    <section id="contact" class="grid">
-      <article class="card">
-        <h2>Contact ✉️</h2>
-        <div class="liste">
-          <div class="item"><svg class="icon" aria-hidden="true"><use href="#i-envelope"/></svg><p><a href="mailto:contact@boulangeriepop.fr">contact@boulangeriepop.fr</a></p></div>
-          <div class="item"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><p><a href="tel:+33123456789">01 23 45 67 89</a></p></div>
-          <div class="item"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><p>Adresse à venir 📍</p></div>
-        </div>
-      </article>
-      <article class="card">
-        <h2>Engagement 🌿</h2>
-        <p>Approvisionnement responsable, anti-gaspillage, énergie mesurée. « Là où la gourmandise rime avec conscience. »</p>
-      </article>
-    </section>
-  </main>
+          <label for="tel">Téléphone</label><br/>
+          <input id="tel" name="tel" type="tel" required pattern="^[0-9+ ]{6,}$" style="width:100%; margin:6px 0 12px; padding:12px; border-radius:10px; border:1px solid var(--glass-stroke); background:rgba(0,0,0,0.25); color:var(--text)"/>
+
+          <label for="msg">Besoin</label><br/>
+          <textarea id="msg" name="msg" rows="4" style="width:100%; margin:6px 0 14px; padding:12px; border-radius:10px; border:1px solid var(--glass-stroke); background:rgba(0,0,0,0.25); color:var(--text)"></textarea>
+
+          <button class="cta" type="submit" style="border:none; cursor:pointer;">
+            Envoyer la demande
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    &copy; 2025 Boulangerie Pop — Depuis 1880
+    <small>Serrurerie Bondoufle — Dépannage 24/7 • 01 69 24 03 81 • 11 rue Gustave Madiot, 91070 Bondoufle</small>
   </footer>
 
-  <!-- GSAP + ScrollTrigger -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-cdn" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-cdn" crossorigin="anonymous"></script>
-
-  <!-- Three.js pour croissant filaire et « poussière de farine » -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js" integrity="sha512-cdn" crossorigin="anonymous"></script>
+  <!-- GSAP -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <!-- Three.js -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
   <script>
-    // Menu mobile
-    const hamb = document.getElementById('hamb');
-    const drawer = document.getElementById('drawer');
-    const closeDrawer = document.getElementById('closeDrawer');
-    hamb.addEventListener('click', ()=> drawer.setAttribute('aria-hidden', 'false'));
-    closeDrawer.addEventListener('click', ()=> drawer.setAttribute('aria-hidden', 'true'));
-    drawer.addEventListener('click', e => { if(e.target === drawer) drawer.setAttribute('aria-hidden','true') });
+    // GSAP entrance
+    gsap.from(".hero-card",{y:30, opacity:0, duration:0.8, ease:"power2.out"});
+    gsap.from(".card",{y:24, opacity:0, duration:0.7, ease:"power2.out", stagger:0.12});
+    gsap.to(".cta",{y:0, repeat:-1, yoyo:true, duration:1.6, ease:"sine.inOut"});
 
-    // GSAP reveal
-    gsap.utils.toArray('.card, .hero').forEach(el=>{
-      gsap.from(el, {opacity:0, y:30, duration:0.9, ease:"power2.out",
-        scrollTrigger:{trigger:el, start:"top 85%"}});
+    // Subtle parallax on hero card
+    const hero = document.getElementById('heroCard');
+    hero.addEventListener('pointermove', e=>{
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width/2)) / r.width;
+      const y = (e.clientY - (r.top + r.height/2)) / r.height;
+      gsap.to(hero,{rotateY:x*3, rotateX:-y*3, transformPerspective:800, transformOrigin:"center", duration:0.4});
     });
+    hero.addEventListener('pointerleave', ()=> gsap.to(hero,{rotateY:0, rotateX:0, duration:0.5}));
 
-    // Three.js — croissant filaire lent et discret
-    const canvas = document.getElementById('bg-canvas');
+    // Three.js subtle animated torus "clé"
+    const canvas = document.getElementById('orbit');
     const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
-    const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
-    renderer.setPixelRatio(DPR);
-
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 8);
+    const camera = new THREE.PerspectiveCamera(36, canvas.clientWidth/canvas.clientHeight, 0.1, 100);
+    camera.position.z = 5;
 
-    const group = new THREE.Group();
-    scene.add(group);
+    const ringMat = new THREE.MeshPhysicalMaterial({
+      color: 0xffcc00,
+      metalness: 0.85,
+      roughness: 0.25,
+      transmission: 0,
+      clearcoat: 0.6,
+      emissive: 0x000000
+    });
+    const torus = new THREE.Mesh(new THREE.TorusKnotGeometry(1, 0.28, 140, 18), ringMat);
+    scene.add(torus);
 
-    // Matériau filaire doré
-    const mat = new THREE.MeshBasicMaterial({ color: 0xd4a373, wireframe: true, transparent:true, opacity:0.45 });
-
-    // Croissant = superposition de petits tores formant un croissant
-    for(let i=0;i<9;i++){
-      const t = new THREE.TorusGeometry(1.2, 0.22 - i*0.012, 16, 64, Math.PI*1.15);
-      const m = new THREE.Mesh(t, mat);
-      m.rotation.x = -0.25;
-      m.rotation.z = 0.35;
-      m.position.y = -0.3 + i*0.06;
-      m.scale.set(1 + i*0.02, 1, 1);
-      group.add(m);
-    }
-
-    // Particules "farine"
-    const flourGeo = new THREE.BufferGeometry();
-    const COUNT = 250;
-    const positions = new Float32Array(COUNT * 3);
-    for(let i=0;i<COUNT;i++){
-      positions[i*3 + 0] = (Math.random()-0.5)*16;
-      positions[i*3 + 1] = (Math.random()-0.5)*10;
-      positions[i*3 + 2] = -Math.random()*8;
-    }
-    flourGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const flourMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.02, transparent:true, opacity:0.6 });
-    const flour = new THREE.Points(flourGeo, flourMat);
-    scene.add(flour);
+    const glow = new THREE.PointLight(0xffcc00, 1.2, 20);
+    glow.position.set(2,2,3);
+    scene.add(glow);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.25));
 
     function resize(){
-      const w = window.innerWidth, h = window.innerHeight;
+      const w = canvas.clientWidth, h = canvas.clientHeight;
       renderer.setSize(w, h, false);
-      camera.aspect = w/h; camera.updateProjectionMatrix();
+      camera.aspect = w / h; camera.updateProjectionMatrix();
     }
-    window.addEventListener('resize', resize); resize();
+    resize(); new ResizeObserver(resize).observe(canvas);
 
     let t = 0;
-    function loop(){
-      t += 0.003;
-      group.rotation.y = Math.sin(t)*0.08;
-      group.rotation.x = -0.25 + Math.cos(t*0.7)*0.03;
-      flour.rotation.y += 0.0008;
+    (function anim(){
+      t += 0.01;
+      torus.rotation.x += 0.007;
+      torus.rotation.y += 0.012;
+      torus.position.x = Math.sin(t)*0.2;
       renderer.render(scene, camera);
-      requestAnimationFrame(loop);
-    }
-    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) loop();
-
-    // Parallaxe douce au scroll
-    document.addEventListener('scroll', ()=>{
-      const s = window.scrollY || 0;
-      group.position.y = -s * 0.0008;
-      camera.position.z = 8 + Math.min(s*0.0008, 0.8);
-    }, {passive:true});
+      requestAnimationFrame(anim);
+    })();
   </script>
 </body>
 </html>
